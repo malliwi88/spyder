@@ -525,7 +525,7 @@ class CodeEditor(TextEditBaseWidget):
                                    name='Copy line', parent=self)
         delete = config_shortcut(self.delete, context='Editor',
                                  name='delete', parent=self)
-        deleteline = config_shortcut(self.delete_current_line, context='Editor',
+        deleteline = config_shortcut(self.delete_line, context='Editor',
                                      name='Delete line', parent=self)
         movelineup = config_shortcut(self.move_line_up, context='Editor',
                                      name='Move line up', parent=self)
@@ -949,13 +949,6 @@ class CodeEditor(TextEditBaseWidget):
         """Remove selected text"""
         if self.has_selected_text():
             self.remove_selected_text()
-
-    @Slot()
-    def delete_current_line(self):
-        """Delete current line"""
-        line = self.get_current_line()
-        if line is not None:
-            self.delete_line()
 
     #------Find occurrences
     def __find_first(self, text):
@@ -2689,8 +2682,8 @@ class CodeEditor(TextEditBaseWidget):
                 self.run_cell.emit()
 
         # fix issue 3405
-        elif shift and delete:
-            self.delete_current_line()
+        elif shift and key == delete:
+            self.delete_line()
 
         elif key == Qt.Key_Insert and not shift and not ctrl:
             self.setOverwriteMode(not self.overwriteMode())

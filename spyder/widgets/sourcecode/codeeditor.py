@@ -2796,6 +2796,9 @@ class CodeEditor(TextEditBaseWidget):
             else:
                 # indent the selected text
                 self.unindent()
+        # trying to fix issue 3405
+        elif shift and key == Qt.Key_Delete:
+            self.delete_line()
         else:
             TextEditBaseWidget.keyPressEvent(self, event)
             if self.is_completion_widget_visible() and text:

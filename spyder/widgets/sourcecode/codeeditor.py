@@ -2688,7 +2688,7 @@ class CodeEditor(TextEditBaseWidget):
             elif ctrl:
                 self.run_cell.emit()
 
-        # Trying fix 3405
+        # fix issue 3405
         elif shift and delete:
             self.delete_current_line()
 

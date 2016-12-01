@@ -668,5 +668,3 @@ except:
 old_location = osp.join(get_home_dir(), '.spyder.ini')
 if osp.isfile(old_location):
     os.remove(old_location)
-
-#print (DEFAULTS)

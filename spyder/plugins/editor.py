@@ -913,6 +913,11 @@ class Editor(SpyderPluginWidget):
                 tip=_("Unindent current line or selection"),
                 triggered=self.unindent, context=Qt.WidgetShortcut)
 
+        self.deleteline_action = create_action(self,
+                _("Delete current line"), "Shift+Del",
+                tip=_("Delete current line or selection"),
+                triggered=self.deleteline, context=Qt.WidgetShortcut)
+
         self.text_uppercase_action = create_action(self,
                 _("Toggle Uppercase"), "Ctrl+Shift+U",
                 tip=_("Change to uppercase current line or selection"),
@@ -1012,7 +1017,8 @@ class Editor(SpyderPluginWidget):
         self.edit_menu_actions = [self.toggle_comment_action,
                                   blockcomment_action, unblockcomment_action,
                                   self.indent_action, self.unindent_action,
-                                  self.text_uppercase_action, self.text_lowercase_action]
+                                  self.text_uppercase_action, self.text_lowercase_action,
+                                  self.deleteline_action]
         self.main.edit_menu_actions += [None]+self.edit_menu_actions
         edit_toolbar_actions = [self.toggle_comment_action,
                                 self.unindent_action, self.indent_action]
@@ -1985,6 +1991,13 @@ class Editor(SpyderPluginWidget):
         editor = self.get_current_editor()
         if editor is not None:
             editor.unindent()
+
+    @Slot()
+    def deleteline (self):
+        """Change current line or selection to uppercase."""
+        editor = self.get_current_editor()
+        if editor is not None:
+            editor.delete_line()
 
     @Slot()
     def text_uppercase (self):

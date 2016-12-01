@@ -523,7 +523,7 @@ class CodeEditor(TextEditBaseWidget):
                                          name='Duplicate line', parent=self)
         copyline = config_shortcut(self.copy_line, context='Editor',
                                    name='Copy line', parent=self)
-        deleteline = config_shortcut(self.delete_line, context='Editor',
+        deleteline = config_shortcut(self.delete_current_line, context='Editor',
                                      name='Delete line', parent=self)
         movelineup = config_shortcut(self.move_line_up, context='Editor',
                                      name='Move line up', parent=self)
@@ -2161,6 +2161,10 @@ class CodeEditor(TextEditBaseWidget):
 
     def __blockcomment_bar(self):
         return self.comment_string + '='*(79-len(self.comment_string))
+
+    def delete_current_line(self):
+        """Delete current line."""
+        self.delete_line()
 
     def transform_to_uppercase(self):
         """Change to uppercase current line or selection."""

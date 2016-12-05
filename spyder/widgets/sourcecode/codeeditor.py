@@ -2681,6 +2681,8 @@ class CodeEditor(TextEditBaseWidget):
                 self.run_cell.emit()
         elif key == Qt.Key_Insert and not shift and not ctrl:
             self.setOverwriteMode(not self.overwriteMode())
+        elif shift and key == Qt.Key_Delete:
+            self.delete_line()
         elif key == Qt.Key_Backspace and not shift and not ctrl:
             leading_text = self.get_text('sol', 'cursor')
             leading_length = len(leading_text)
